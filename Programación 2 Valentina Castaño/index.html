@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+     integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==
+    " crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="styles.css">
+    <title>Luzu</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300i,400" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+   
+</head>
+<body>
+
+    
+    <header>
+        <div class="navbar">
+            <div class="logo">
+                <img src="logo_luzu-transformed.png" alt="luzu tv"></div>
+            <ul class="links">
+                <li><a href="Início">Início</a></li>
+                <li><a href="Programación">Programación</a></li>
+                <li><a href="Acerca De">Acerca De</a></li>
+            </ul>   
+            <a href="#" class="action_btn">Contactanos</a>
+            <div class="toggle-btn">
+                <i class="fa-solid fa-bars"></i>
+                <button class="toggle_btn">Toggle</button>
+
+            </div>
+        </div>
+        <div class="dropdown_menú">
+            <li><a href="Início">Início</a></li>
+            <li><a href="Programación">Programación</a></li>
+            <li><a href="Acerca De">Acerca De</a></li>
+            <li><a href="#" class="action_btn">Contactanos</a></li>
+
+        </div>
+
+        <div class="wave">
+<div style="height: 150px; overflow: hidden;" ><svg viewBox="0 0 500 150" preserveAspectRatio="none" style="height: 100%; width: 100%;"><path d="M0.00,49.98 C149.99,150.00 350.17,-22.19 556.71,113.98 L500.00,150.00 L0.00,150.00 Z" style="stroke: none; fill: #000;"></path></svg></div>
+        </div>
+
+    
+    </header>
+    <script>
+
+        const toggleBtn = document.querySelector('.toggle_btn');
+        const toggleBtnIcon = document.querySelector('.toggle_btn i');
+        const dropDownMenú = document.querySelector('.dropdown_menú');
+        
+        toggleBtn.addEventListener('click', function () {
+            dropDownMenú.classList.toggle('open');
+            const isOpen = dropDownMenú.classList.contains('open');
+    
+            if (isOpen) {
+                toggleBtnIcon.classList.remove('fa-bars');
+                toggleBtnIcon.classList.add('fa-xmark');
+            } else {
+                toggleBtnIcon.classList.remove('fa-xmark');
+                toggleBtnIcon.classList.add('fa-bars');
+            }
+        });
+    </script>
+
+<div class="container">
+    <h1>UN NUEVO MEDIO DE COMUNICACIÓN</h1>
+    <p>Inspirados en el entretenimiento, creamos un espacio que conecta y 
+        potencia las distintas culturas impactando positivamente en nuestra comunidad.</p>
+</div>
+
+  </div>
+
+
+<div class="container2">
+    <div class="box">
+        <img src="nadie dice nada.jpg">
+    </div>
+    <div class="box">
+        <img src="red flag.jpg">
+    </div>
+    <div class="box">
+        <img src="antes que nadie.jpg">
+    </div>
+    <div class="box">
+        <img src="mas de lo mismo.jpeg">
+    </div>
+    <div class="box">
+        <img src="tarde de tertulia.jpeg">
+    </div>
+    <div class="box">
+        <img src="entre nosotros.jpg">
+    </div>
+    <div class="box">
+        <img src="duquesas.jpg">
+    </div>
+</div>
+
+<div class="contador">
+    <div class="container3">
+        <div class="card2">
+          <i class="fab fa-youtube"></i>
+          <p class="counter" name="youtube">0</p>
+          <p class="label">Youtube</p>
+        </div>
+        <div class="card2">
+          <i class="fa-solid fa-users"></i>
+          <p class="counter" name="Record">0</p>
+          <p class="label">Record Espectadores</p>
+        </div>
+        <div class="card2">
+          <i class="fab fa-instagram"></i>
+          <p class="counter" name="instagram">0</p>
+          <p class="label">Instagram</p>
+        </div>
+        <div class="card2">
+            <i class="fa-solid fa-trophy"></i>
+            <p class="counter" name="premios">0</p>
+            <p class="label">Premios</p>
+          </div>
+      </div>
+    </div>
+    
+    <script>
+        // Función para verificar si un elemento está en la ventana gráfica
+        function isElementInViewport(el) {
+          const rect = el.getBoundingClientRect();
+          return (
+            rect.top >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
+          );
+        }
+        
+        async function getCount(name) {
+          switch (name) {
+            case "youtube":
+              // Hacer una llamada a la API simulada
+              return 900000;
+            case "Record":
+              return 200000;
+            case "instagram":
+              return 520000;
+            case "premios":
+              return 5;
+          }
+        }
+        
+        function loadValue(element, value) {
+          const step = value / 100;
+          let currentValue = 0;
+        
+          function updateCounter() {
+            if (currentValue < value) {
+              currentValue += step;
+              element.textContent = Math.ceil(currentValue);
+              requestAnimationFrame(updateCounter);
+            } else {
+              element.textContent = value;
+            }
+          }
+        
+          updateCounter();
+        }
+        
+        function checkCountersOnScroll() {
+          const counters = document.querySelectorAll(".counter");
+          counters.forEach(async (counter) => {
+            const name = counter.getAttribute("name");
+            if (isElementInViewport(counter)) {
+              const count = await getCount(name);
+              loadValue(counter, count);
+              // Eliminar el controlador de eventos después de cargar el contador
+              window.removeEventListener("scroll", checkCountersOnScroll);
+            }
+          });
+        }
+        
+        // Verificar los contadores cuando la página se carga inicialmente
+        window.addEventListener("load", checkCountersOnScroll);
+        
+        // Agregar el controlador de eventos scroll para verificar los contadores en el desplazamiento
+        window.addEventListener("scroll", checkCountersOnScroll);
+        </script>
+        
+
+<div class="tabla">
+    <main class="table">
+        <section class="table__header">
+            <h1>Programación</h1>
+           
+            <div class="export__file">
+                <div class="export__file-options">
+                </div>
+            </div>
+        </section>
+        <section class="table__body">
+            <table>
+                <thead>
+                    <tr>
+                        <th> Programas</th>
+                        <th> Lunes </th>
+                        <th> Martes </th>
+                        <th> Miércoles </th>
+                        <th> Jueves</th>
+                        <th> Viernes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td> <img src="antes que nadie.jpg" alt="">Antes Que Nadie</td>
+                        <td> 8:00 hs a 10:00 hs </td>
+                        <td> 8:00 hs a 10:00 hs </td>
+                        <td> 8:00 hs a 10:00 hs </td>
+                        <td> 8:00 hs a 10:00 hs </td>
+                        <td> 8:00 hs a 10:00 hs</td>
+                    </tr>
+                    <tr>
+                        <td><img src="nadie dice nada.jpg" alt=""> Nadie Dice Nada </td>
+                        <td> 10:00 hs a 13:00 hs </td>
+                        <td> 10:00 hs a 13:00 hs </td>
+                        <td> 10:00 hs a 13:00 hs </td>
+                        <td> 10:00 hs a 13:00 hs </td>
+                        <td> 10:00 hs a 13:00 hs</td>
+                    </tr>
+                    <tr>
+                        <td><img src="red flag.jpg" alt=""> Red Flag </td>
+                        <td> 13:00 hs a 15:00 hs </td>
+                        <td> 13:00 hs a 15:00 hs </td>
+                        <td> 13:00 hs a 15:00 hs </td>
+                        <td> 13:00 hs a 15:00 hs </td>
+                        <td> 13:00 hs a 15:00 hs</td>
+                    </tr>
+                    <tr>
+                        <td><img src="mas de lo mismo.jpeg" alt=""> Mas De Lo Mismo </td>
+                        <td> 15:00 hs a 17:00 hs </td>
+                        <td>  </td>
+                        <td> 15:00 hs a 17:00 hs </td>
+                        <td> </td>
+                        <td> 15:00 hs a 17:00 hs</td>
+                    </tr>
+                    <tr>
+                        <td><img src="tarde de tertulia.jpeg" alt=""> Tarde De Tertulia</td>
+                        <td>  </td>
+                        <td> 15:00 hs a 17:00 hs </td>
+                        <td>  </td>
+                        <td> 15:00 hs a 17:00 hs </td>
+                        <td> </td>
+                    </tr>
+                    <tr>
+                        <td><img src="entre nosotros.jpg" alt=""> Entre Nosotros </td>
+                        <td> 17:00 hs a 19:00 hs </td>
+                        <td> 17:00 hs a 19:00 hs </td>
+                        <td> </td>
+                        <td> 17:00 hs a 19:00 hs </td>
+                        <td> </td>
+                    </tr>
+                    <tr>
+                        <td><img src="duquesas.jpg" alt=""> Duquesas</td>
+                        <td>  </td>
+                        <td>  </td>
+                        <td> 17 hs a 19:00 hs </td>
+                        <td> </td>
+                        <td> </td>
+                    </tr>
+                  
+                </tbody>
+            </table>
+        </section>
+    </div>
+    </main>
+    <footer>
+    <div class="social-icons">
+        <a href="#" class="icon facebook"></a>
+        <a href="#" class="icon twitter"></a>
+        <a href="#" class="icon instagram"></a>
+        <a href="#" class="icon linkedin"></a>
+        <a href="#" class="icon TikTok"></a>
+    </div>
+</footer>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+
+</body>
+</html>
